@@ -1,17 +1,14 @@
 # RLAssignment5
-Here is a **clean, professional GitHub README** suitable for your **CMPS458 – Assignment 5**, using **World Models** on **Space Invaders**. You can copy-paste it directly into `README.md`.
-
----
 
 # World Models for Space Invaders 🎮🧠
 
 This repository implements a **model-based reinforcement learning agent** using the **World Models** framework and trains it on the **SpaceInvadersNoFrameskip-v4** Atari environment.
 
-The project is part of **CMPS458: Reinforcement Learning (Fall 2025)**, Computer Engineering Department.
+The Assignment is part of **CMPS458: Reinforcement Learning (Fall 2025)**, Computer Engineering Department.
 
 ---
 
-## 📌 Project Overview
+## 📌 Assignment Overview
 
 World Models is a **model-based RL approach** that learns a compact latent representation of the environment and uses it to plan and learn policies efficiently.
 
@@ -149,13 +146,3 @@ All experiments, losses, rewards, and videos are logged using **Weights & Biases
 * **Instructor**: Dr. Ayman AboElHassan
 * **Semester**: Fall 2025
 
----
-
-If you want, I can:
-
-* Make it **shorter**
-* Adapt it to **Hugging Face repo**
-* Add **badges** (Python, PyTorch, WandB)
-* Customize it with **your team name**
-
-Just tell me 👍
