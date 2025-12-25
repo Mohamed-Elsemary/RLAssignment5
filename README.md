@@ -1,148 +1,78 @@
-# RLAssignment5
-
-# World Models for Space Invaders 🎮🧠
-
-This repository implements a **model-based reinforcement learning agent** using the **World Models** framework and trains it on the **SpaceInvadersNoFrameskip-v4** Atari environment.
-
-The Assignment is part of **CMPS458: Reinforcement Learning (Fall 2025)**, Computer Engineering Department.
-
+---
+tags:
+- reinforcement-learning
+- world-models
+- atari
+- space-invaders
+- deep-learning
+library_name: pytorch
 ---
 
-## 📌 Assignment Overview
+# World Models for Space Invaders
 
-World Models is a **model-based RL approach** that learns a compact latent representation of the environment and uses it to plan and learn policies efficiently.
+This is a World Models agent trained on the `SpaceInvadersNoFrameskip-v4` environment.
 
-In this project, we:
+## Model Description
 
-* Learn a **latent world model** from pixel observations
-* Train an agent to play **Space Invaders** using the learned model
-* Evaluate performance and record agent gameplay
-* Log experiments and metrics using **Weights & Biases (WandB)**
+World Models is a model-based reinforcement learning approach that learns a compressed representation 
+of the environment and trains a controller to maximize reward in the learned model.
 
----
+The architecture consists of three components:
+- **V (Vision)**: Variational Autoencoder that compresses 64x64 RGB frames to 32-dimensional latent vectors
+- **M (Memory)**: MDN-RNN that predicts the next latent state given current state and action
+- **C (Controller)**: Linear policy trained with CMA-ES evolution strategy
 
-## 🧠 World Models Architecture
+## Training Details
 
-The implementation follows the original **World Models** framework:
+### Hyperparameters
+- VAE Latent Dimension: 32
+- RNN Hidden Dimension: 256
+- Number of Gaussian Mixtures: 5
+- Population Size (CMA-ES): 64
+- Training Episodes: 100
+- VAE Epochs: 10
+- RNN Epochs: 20
+- Controller Generations: 10
 
-1. **Vision Model (VAE)**
+## Evaluation Results
 
-   * Compresses raw game frames into a low-dimensional latent space
+- **Mean Reward**: 575.00 ± 0.00
+- **Max Reward**: 575.00
+- **Mean Episode Length**: 3235.00
 
-2. **Memory Model (MDN-RNN)**
+## Usage
 
-   * Predicts future latent states and rewards
+```python
+import torch
+import gymnasium as gym
 
-3. **Controller (Policy Network)**
+# Load models
+vae = VAE(latent_dim=32)
+vae.load_state_dict(torch.load('vae_model.pt'))
 
-   * Selects actions based on latent states and RNN hidden states
+rnn = MDNRNN(latent_dim=32, action_dim=6)
+rnn.load_state_dict(torch.load('mdnrnn_model.pt'))
 
-Reference:
+controller = Controller(latent_dim=32, hidden_dim=256)
+controller.load_state_dict(torch.load('controller_model.pt'))
 
-* Ha, D., & Schmidhuber, J. *World Models*
-  [https://worldmodels.github.io/](https://worldmodels.github.io/)
-
----
-
-## 🎮 Environment
-
-* **Gymnasium Atari**
-* **SpaceInvadersNoFrameskip-v4**
-* Observations: raw RGB frames
-* Actions: discrete Atari action space
-
----
-
-## 🛠️ Technologies & Libraries
-
-* Python 3.x
-* PyTorch
-* Gymnasium
-* ALE (Atari Learning Environment)
-* Weights & Biases (WandB)
-* Hugging Face Hub
-
----
-
-## 📁 Repository Structure
-
-```
-├── env/                # Gym environment wrappers
-├── models/             # VAE, MDN-RNN, Controller
-├── train/              # Training scripts
-├── eval/               # Evaluation & video recording
-├── configs/            # Hyperparameters
-├── results/            # Logs and saved models
-├── README.md
-└── requirements.txt
+# Run agent
+env = gym.make('SpaceInvadersNoFrameskip-v4')
+# ... (see repository for full inference code)
 ```
 
----
+## References
 
-## 🚀 Training the Agent
+- Paper: [World Models (Ha & Schmidhuber, 2018)](https://worldmodels.github.io/)
+- Code: Based on the original World Models implementation
 
-1. Install dependencies:
+## Citation
 
-```bash
-pip install -r requirements.txt
+```bibtex
+@article{ha2018worldmodels,
+  title={World Models},
+  author={Ha, David and Schmidhuber, J{\"u}rgen},
+  journal={arXiv preprint arXiv:1803.10122},
+  year={2018}
+}
 ```
-
-2. Train the world model:
-
-```bash
-python train/train_world_model.py
-```
-
-3. Train the controller:
-
-```bash
-python train/train_controller.py
-```
-
----
-
-## 🎥 Recording Gameplay
-
-The trained agent is recorded using Gymnasium’s `RecordVideo` wrapper.
-Videos are logged and shared via **WandB reports**.
-
----
-
-## 📊 Experiment Tracking
-
-All experiments, losses, rewards, and videos are logged using **Weights & Biases**.
-
----
-
-## 🧪 Results
-
-* The agent successfully learns a compact world representation
-* Performance improves as the controller leverages the learned dynamics
-* Demonstrates the effectiveness of **model-based RL** on high-dimensional Atari environments
-
-(See paper for quantitative results and charts.)
-
----
-
-## 📄 Paper & Links
-
-* 📄 Research Paper (submitted separately)
-* 💻 GitHub Repository: *(this repo)*
-* 🎥 Agent Gameplay Video: *(linked via WandB)*
-* 📊 WandB Report: *(included in paper)*
-
----
-
-## 📚 References
-
-1. Ha, D., & Schmidhuber, J. (2018). *World Models*.
-   [https://worldmodels.github.io/](https://worldmodels.github.io/)
-
----
-
-## 👤 Course Information
-
-* **Course**: CMPS458 – Reinforcement Learning
-* **Instructor**: Dr. Ayman AboElHassan
-* **Semester**: Fall 2025
-
