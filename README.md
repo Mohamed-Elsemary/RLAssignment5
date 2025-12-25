@@ -1,7 +1,7 @@
 # World Models for Space Invaders
 
 This is a World Models agent trained on the `SpaceInvadersNoFrameskip-v4` environment.
-
+Hugging Face Submission:https://huggingface.co/loayahmed123/world-models-spaceinvadersW
 ## Model Description
 
 World Models is a model-based reinforcement learning approach that learns a compressed representation 
