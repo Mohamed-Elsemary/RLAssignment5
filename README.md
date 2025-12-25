@@ -1,13 +1,3 @@
----
-tags:
-- reinforcement-learning
-- world-models
-- atari
-- space-invaders
-- deep-learning
-library_name: pytorch
----
-
 # World Models for Space Invaders
 
 This is a World Models agent trained on the `SpaceInvadersNoFrameskip-v4` environment.
